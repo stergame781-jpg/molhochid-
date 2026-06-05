@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Мөлхөгчид — 8-р ангийн Биологи</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #b45309;
+    --green-light: #fef3c7;
+    --green-mid: #d97706;
+    --amber: #92400e;
+    --blue: #15803d;
+    --blue-light: #dcfce7;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --coral: #e05252;
+    --coral-light: #fee2e2;
+    --bg: #fdf8f0;
+    --card: #ffffff;
+    --text: #1c1008;
+    --muted: #78716c;
+    --border: #e7d8c0;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1c1008 0%, #3d2008 50%, #7c3a10 100%);
+    color: white;
+    padding: 60px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Crect x='0' y='0' width='4' height='4'/%3E%3Crect x='40' y='40' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: #fcd34d; }
+  .hero p {
+    font-size: 17px;
+    opacity: 0.85;
+    max-width: 520px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .hero-author { font-size: 14px; opacity: 0.65; font-weight: 600; }
+  .hero-bugs {
+    position: absolute;
+    font-size: 44px;
+    opacity: 0.1;
+    animation: float 7s ease-in-out infinite;
+  }
+  .hero-bugs:nth-child(1) { top: 12%; left: 4%; animation-delay: 0s; }
+  .hero-bugs:nth-child(2) { top: 55%; left: 2%; animation-delay: 1.5s; font-size: 30px; }
+  .hero-bugs:nth-child(3) { top: 18%; right: 5%; animation-delay: 2.5s; }
+  .hero-bugs:nth-child(4) { top: 65%; right: 3%; animation-delay: 0.8s; font-size: 34px; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(6deg); }
+  }
+
+  nav {
+    background: white;
+    border-bottom: 2px solid #fde68a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 20px;
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 4px;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 14px 16px;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover, nav a.active {
+    color: #b45309;
+    border-bottom-color: #b45309;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 16px 80px;
+  }
+
+  section { margin-bottom: 60px; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    width: 36px; height: 36px;
+    background: #b45309;
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; flex-shrink: 0;
+  }
+  .section-title { font-size: 22px; font-weight: 800; color: var(--text); }
+
+  .definition-card {
+    background: linear-gradient(135deg, #3d2008, #7c3a10);
+    color: white;
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .definition-card::after {
+    content: '🦎';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 64px;
+    opacity: 0.18;
+  }
+  .definition-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; opacity: 0.8; }
+  .definition-card p { font-size: 16px; line-height: 1.7; opacity: 0.95; }
+
+  .reptile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .reptile-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .reptile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border-color: #d97706;
+  }
+  .reptile-card .img-wrap {
+    height: 170px;
+    overflow: hidden;
+    background: #fef3c7;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .reptile-card .img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .reptile-card:hover .img-wrap img { transform: scale(1.06); }
+  .reptile-card .emoji-fallback { font-size: 70px; line-height: 1; display: none; }
+  .reptile-card .card-body { padding: 14px 16px 18px; }
+  .reptile-card .card-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .reptile-card h4 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+  .reptile-card .sci-name { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+  .reptile-card p { font-size: 13px; color: #5c4a38; line-height: 1.6; }
+
+  .body-parts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .part-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px 16px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  .part-card:hover { transform: translateX(4px); }
+  .part-card .part-icon { font-size: 28px; margin-bottom: 10px; }
+  .part-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+  .part-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .meta-steps {
+    display: flex; gap: 0;
+    position: relative;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  .meta-step { flex: 1; min-width: 130px; text-align: center; position: relative; }
+  .meta-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px; top: 34px;
+    font-size: 22px; color: #d97706; font-weight: 800; z-index: 2;
+  }
+  .meta-emoji {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; border: 3px solid;
+  }
+  .meta-step h4 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .meta-step p { font-size: 12px; color: var(--muted); line-height: 1.5; padding: 0 4px; }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .fact-card {
+    background: white; border-radius: 16px; padding: 22px 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-top: 4px solid;
+  }
+  .fact-num { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+  .fact-label { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+  .quiz-card {
+    background: white; border-radius: 20px; padding: 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 16px;
+  }
+  .quiz-q { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .quiz-btn {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 12px; padding: 12px 14px;
+    font-size: 14px; font-family: 'Nunito', sans-serif; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; color: var(--text); text-align: left;
+  }
+  .quiz-btn:hover { background: #fef3c7; border-color: #d97706; }
+  .quiz-btn.correct { background: #dcfce7; border-color: #15803d; color: #14532d; }
+  .quiz-btn.wrong { background: #fee2e2; border-color: #e05252; color: #991b1b; }
+  .quiz-btn:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 10px; padding: 10px 14px;
+    border-radius: 10px; font-size: 14px; font-weight: 600; display: none;
+  }
+
+  footer {
+    background: #1c1008; color: rgba(255,255,255,0.75);
+    text-align: center; padding: 30px 20px; font-size: 14px;
+  }
+  footer strong { color: white; }
+
+  @media (max-width: 600px) {
+    .reptile-grid { grid-template-columns: 1fr 1fr; }
+    .meta-step:not(:last-child)::after { display: none; }
+    .quiz-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bugs">🦎</div>
+  <div class="hero-bugs">🐊</div>
+  <div class="hero-bugs">🐢</div>
+  <div class="hero-bugs">🐍</div>
+  <div class="hero-badge">Биологи · 8-р анги</div>
+  <h1>Мөлхөгчид<br><span>(Reptilia)</span></h1>
+  <p>Хуурай газрын эртний нурууны амьтад — хөвтгөр арьс, хүйтэн цустны дасан зохицогчид</p>
+  <div class="hero-author">Зохиогч: Н.Соёмбо</div>
+</div>
+
+<nav>
+  <a href="#definition" class="active">Тодорхойлолт</a>
+  <a href="#species">Зүйлүүд</a>
+  <a href="#structure">Бүтэц</a>
+  <a href="#reproduction">Үржил</a>
+  <a href="#facts">Тоо баримт</a>
+  <a href="#quiz">Тест</a>
+</nav>
+
+<main>
+
+  <!-- 1. DEFINITION -->
+  <section id="definition">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <div class="section-title">Мөлхөгчид гэж юу вэ?</div>
+    </div>
+
+    <div class="definition-card">
+      <h3>Шинжлэх ухааны тодорхойлолт</h3>
+      <p>Мөлхөгчид (Reptilia) нь нурууны амьтдын анги бөгөөд <strong>хүйтэн цустай</strong> (пойкилотерм), биеийг нь <strong>хайрс буюу хальс</strong> бүрхэж, <strong>уушгиар амьсгалдаг</strong> амьтад юм. Дэлхий дээр 10,000 гаруй зүйл бүртгэгдсэн байна.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:14px;">
+      <div style="background:white; border-radius:16px; padding:20px; border-left:4px solid #b45309; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+        <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px;">Хаант улс</div>
+        <div style="font-size:16px; font-weight:800;">Амьтан (Animalia)</div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px; border-left:4px solid #15803d; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+        <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px;">Хэлтэс</div>
+        <div style="font-size:16px; font-weight:800;">Нурууны (Chordata)</div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px; border-left:4px solid #d97706; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+        <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px;">Анги</div>
+        <div style="font-size:16px; font-weight:800;">Мөлхөгчид (Reptilia)</div>
+      </div>
+      <div style="background:white; border-radius:16px; padding:20px; border-left:4px solid #7c3aed; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+        <div style="font-size:13px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px;">Бүртгэгдсэн зүйл</div>
+        <div style="font-size:16px; font-weight:800;">10,000+ зүйл</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SPECIES -->
+  <section id="species">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <div class="section-title">Мөлхөгчдийн жишээ зүйлүүд</div>
+    </div>
+
+    <div class="reptile-grid">
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Eublepharis_macularius_2009_G2.jpg/640px-Eublepharis_macularius_2009_G2.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Гүрвэл">
+          <div class="emoji-fallback">🦎</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#fef3c7; color:#b45309;">Хайрстан</span>
+          <h4>Гүрвэл</h4>
+          <div class="sci-name">Lacertilia</div>
+          <p>Монголын хээр, говьд өргөн тархсан. Дайснаас зугтахын тулд сүүлээ таслан хаях чадвартай бөгөөд сүүл нь дахин ургадаг онцлогтой.</p>
+        </div>
+      </div>
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Python_reticulatus_1.jpg/640px-Python_reticulatus_1.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Могой">
+          <div class="emoji-fallback">🐍</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#dcfce7; color:#15803d;">Могойнхон</span>
+          <h4>Могой</h4>
+          <div class="sci-name">Serpentes</div>
+          <p>Хөлгүй, урт биетэй мөлхөгч. Доод эрүү нь нэмэлт яс бүхий учир амнаасаа том олзоо залгидаг. Зарим зүйл хор ялгаруулдаг.</p>
+        </div>
+      </div>
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Chelonia_mydas_is_going_for_the_air.jpg/640px-Chelonia_mydas_is_going_for_the_air.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Яст мэлхий">
+          <div class="emoji-fallback">🐢</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#fef3c7; color:#b45309;">Яст мэлхийнхэн</span>
+          <h4>Яст мэлхий</h4>
+          <div class="sci-name">Testudines</div>
+          <p>Хатуу бүрхэвчтэй, удаан амьдардаг мөлхөгч. Зарим зүйл 150 жил хүртэл амьдрах боломжтой. Хуурай газрын болон далайн зүйлүүд бий.</p>
+        </div>
+      </div>
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Orinoco_caiman.jpg/640px-Orinoco_caiman.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Матар">
+          <div class="emoji-fallback">🐊</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#fee2e2; color:#e05252;">Матарнхан</span>
+          <h4>Матар</h4>
+          <div class="sci-name">Crocodilia</div>
+          <p>Мөлхөгчдийн хамгийн том бие бүхий зүйлүүд. Ус болон хуурай газарт амьдардаг. Дэлхийн хамгийн эртний мөлхөгчдийн нэг — динозаврын үеийн амьтан.</p>
+        </div>
+      </div>
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG-Freikarte-Chamaeleo_calyptratus.jpg/640px-PNG-Freikarte-Chamaeleo_calyptratus.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Хамелеон">
+          <div class="emoji-fallback">🦎</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#ede9fe; color:#7c3aed;">Хайрстан</span>
+          <h4>Хамелеон</h4>
+          <div class="sci-name">Chamaeleonidae</div>
+          <p>Биеийнхээ өнгийг өөрчилдөг онцгой чадвартай. Нүд нь бие биенээсээ тусдаа эргэж чаддаг. Хэл нь биеийнхээ уртыг давсан урттай байж олзоо барьдаг.</p>
+        </div>
+      </div>
+
+      <div class="reptile-card">
+        <div class="img-wrap">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Komodo_dragon_02.jpg/640px-Komodo_dragon_02.jpg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Комодо варан">
+          <div class="emoji-fallback">🦖</div>
+        </div>
+        <div class="card-body">
+          <span class="card-tag" style="background:#fef3c7; color:#b45309;">Хайрстан</span>
+          <h4>Комодо варан</h4>
+          <div class="sci-name">Varanus komodoensis</div>
+          <p>Дэлхийн хамгийн том амьд гүрвэл. Урт нь 3м хүрч, жин нь 70кг давдаг. Шүлсэнд нь бактери ихтэй бөгөөд хазалт нь маш аюултай.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. STRUCTURE -->
+  <section id="structure">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <div class="section-title">Биеийн бүтэц ба онцлог</div>
+    </div>
+
+    <div style="background:white; border-radius:20px; padding:28px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:24px; text-align:center;">
+      <svg viewBox="0 0 480 200" style="width:100%; max-width:480px;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Гүрвэлийн дүрс (хажуугийн харагдалт) -->
+        <!-- Бие -->
+        <ellipse cx="230" cy="105" rx="110" ry="42" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+        <!-- Хайрсны загвар -->
+        <path d="M140,90 Q155,80 170,88 Q185,78 200,86 Q215,76 230,84 Q245,76 260,84 Q275,78 290,86 Q305,80 320,90" fill="none" stroke="#d97706" stroke-width="1" opacity="0.5"/>
+        <path d="M138,105 Q153,95 168,103 Q183,93 198,101 Q213,91 228,99 Q243,91 258,99 Q273,93 288,101 Q303,95 318,103 Q333,95 340,105" fill="none" stroke="#d97706" stroke-width="1" opacity="0.5"/>
+        <path d="M140,120 Q155,112 170,120 Q185,112 200,118 Q215,110 230,118 Q245,112 260,118 Q275,112 290,120 Q305,114 320,120" fill="none" stroke="#d97706" stroke-width="1" opacity="0.5"/>
+
+        <!-- Толгой -->
+        <ellipse cx="85" cy="105" rx="46" ry="30" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
+        <text x="85" y="103" text-anchor="middle" font-size="12" font-weight="800" fill="#7c2d12" font-family="Nunito,sans-serif">Толгой</text>
+        <text x="85" y="116" text-anchor="middle" font-size="9" fill="#c2410c" font-family="Nunito,sans-serif">Head</text>
+        <!-- Нүд -->
+        <circle cx="72" cy="98" r="7" fill="#fbbf24" stroke="#c2410c" stroke-width="1.5"/>
+        <circle cx="72" cy="98" r="3" fill="#1c1008"/>
+        <!-- Хэл -->
+        <path d="M48,108 Q36,108 28,104 M28,104 Q24,100 20,97 M28,104 Q24,108 20,111" stroke="#e05252" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- Холбоос толгой-бие -->
+        <path d="M130,105 L120,105" stroke="#b45309" stroke-width="2.5"/>
+
+        <!-- Сүүл -->
+        <path d="M340,105 Q380,100 420,90 Q440,85 455,82" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M340,108 Q380,112 420,118 Q440,122 455,124" stroke="#b45309" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+
+        <!-- Хөл (4 ширхэг) -->
+        <path d="M175,145 Q170,162 160,178" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M175,145 Q168,178 160,178 M160,178 Q154,178 150,178 M160,178 Q160,182 156,184 M160,178 Q164,182 168,184" stroke="#b45309" stroke-width="1.5" fill="none"/>
+
+        <path d="M265,145 Q270,162 278,178" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M265,145 Q272,178 278,178 M278,178 Q284,178 288,178 M278,178 Q278,182 274,184 M278,178 Q282,182 286,184" stroke="#b45309" stroke-width="1.5" fill="none"/>
+
+        <path d="M178,66 Q172,48 164,34" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M268,66 Q274,48 282,34" stroke="#b45309" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- Шошгонууд -->
+        <line x1="85" y1="75" x2="85" y2="30" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="85" y="24" text-anchor="middle" font-size="10" fill="#6b7280" font-family="Nunito,sans-serif">Хэл (мэдрэхүй)</text>
+
+        <line x1="230" y1="63" x2="230" y2="28" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="230" y="22" text-anchor="middle" font-size="10" fill="#6b7280" font-family="Nunito,sans-serif">Хайрс бүрхэвч</text>
+
+        <line x1="160" y1="182" x2="130" y2="196" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="110" y="200" text-anchor="middle" font-size="10" fill="#6b7280" font-family="Nunito,sans-serif">Хөл (4)</text>
+
+        <line x1="450" y1="103" x2="465" y2="95" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="470" y="92" font-size="10" fill="#6b7280" font-family="Nunito,sans-serif">Сүүл</text>
+      </svg>
+    </div>
+
+    <div class="body-parts">
+      <div class="part-card" style="border-color:#b45309;">
+        <div class="part-icon">🟤</div>
+        <h4>Хайрс/Хальс</h4>
+        <p>Кератин бодисоор бүрхэгдсэн гадна бүрхэвч. Чийгийн алдагдлаас хамгаалж, хуурай газарт амьдрахад тусалдаг.</p>
+      </div>
+      <div class="part-card" style="border-color:#d97706;">
+        <div class="part-icon">🫀</div>
+        <h4>3 танхимт зүрх</h4>
+        <p>Ихэнх мөлхөгч 3 танхимт зүрхтэй (матар 4 танхимт). Цусны эргэлтийн тогтолцоо хагас тусгаарлагдсан байна.</p>
+      </div>
+      <div class="part-card" style="border-color:#15803d;">
+        <div class="part-icon">🫁</div>
+        <h4>Уушги</h4>
+        <p>Насан туршдаа уушгиар амьсгална. Загасны хүүхдийн саваа хэзээ ч хэрэглэдэггүй.</p>
+      </div>
+      <div class="part-card" style="border-color:#7c3aed;">
+        <div class="part-icon">🌡️</div>
+        <h4>Хүйтэн цус</h4>
+        <p>Биеийн температурыг гадаад орчноос зохицуулна. Нарны дулаанд дулаацаж, сүүдэрт хөрдөг.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. REPRODUCTION -->
+  <section id="reproduction">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <div class="section-title">Үржил ба хөгжил</div>
+    </div>
+
+    <div style="background:white; border-radius:20px; padding:28px; box-shadow:0 2px 12px rgba(0,0,0,0.06); margin-bottom:20px;">
+      <div style="font-size:15px; font-weight:800; color:#b45309; margin-bottom:6px;">Өндөглөлтөөр үржих (Oviparous)</div>
+      <div style="font-size:14px; color:var(--muted); margin-bottom:24px;">Ихэнх мөлхөгч өндөглөдөг — гүрвэл, могой, яст мэлхий, матар</div>
+      <div class="meta-steps">
+        <div class="meta-step">
+          <div class="meta-emoji" style="background:#fef9c3; border-color:#d97706;">🤝</div>
+          <h4>Тоглолт</h4>
+          <p>Эр нь эмийг татахын тулд биеийнхээ өнгийг өөрчилж, тоглолт хийнэ</p>
+        </div>
+        <div class="meta-step">
+          <div class="meta-emoji" style="background:#fef3c7; border-color:#b45309;">🥚</div>
+          <h4>Өндөглөлт</h4>
+          <p>Нягт бүрхэвчтэй өндгийг дулаан, аюулгүй газар хадгална</p>
+        </div>
+        <div class="meta-step">
+          <div class="meta-emoji" style="background:#dcfce7; border-color:#15803d;">🌡️</div>
+          <h4>Дулаацуулалт</h4>
+          <p>Өндгийг нар эсвэл ялзарсан органик бодис дулаацуулна</p>
+        </div>
+        <div class="meta-step">
+          <div class="meta-emoji" style="background:#fef3c7; border-color:#d97706;">🦎</div>
+          <h4>Гарах</h4>
+          <p>Жижиг мөлхөгч бүрэн хэлбэртэйгээр өндгөнөөс гарна</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:white; border-radius:20px; padding:28px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+      <div style="font-size:15px; font-weight:800; color:#15803d; margin-bottom:16px;">Өвөлжилт (Hibernation)</div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:12px;">
+        <div style="background:#fef9c3; border-radius:14px; padding:16px;">
+          <div style="font-size:22px; margin-bottom:8px;">❄️</div>
+          <div style="font-weight:800; font-size:14px; margin-bottom:4px;">Өвлийн унтаа</div>
+          <div style="font-size:13px; color:var(--muted);">Хүйтэн орчинд бодисын солилцоо буурч, идэвхгүй байдалд ордог</div>
+        </div>
+        <div style="background:#fef3c7; border-radius:14px; padding:16px;">
+          <div style="font-size:22px; margin-bottom:8px;">☀️</div>
+          <div style="font-weight:800; font-size:14px; margin-bottom:4px;">Нарлах</div>
+          <div style="font-size:13px; color:var(--muted);">Өглөө нарт гарч биеийн температурыг нэмэгдүүлдэг заншилтай</div>
+        </div>
+        <div style="background:#dcfce7; border-radius:14px; padding:16px;">
+          <div style="font-size:22px; margin-bottom:8px;">🏜️</div>
+          <div style="font-weight:800; font-size:14px; margin-bottom:4px;">Эстиваци</div>
+          <div style="font-size:13px; color:var(--muted);">Зарим зүйл хэт халуунд ч мөн идэвхгүй байдалд ордог</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FACTS -->
+  <section id="facts">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <div class="section-title">Тоо баримт ба сонирхолтой мэдээлэл</div>
+    </div>
+    <div class="facts-grid" style="margin-bottom:24px;">
+      <div class="fact-card" style="border-color:#b45309;">
+        <div class="fact-num" style="color:#b45309;">10K+</div>
+        <div class="fact-label">Бүртгэгдсэн зүйл</div>
+      </div>
+      <div class="fact-card" style="border-color:#d97706;">
+        <div class="fact-num" style="color:#d97706;">300M</div>
+        <div class="fact-label">Жилийн түүхтэй</div>
+      </div>
+      <div class="fact-card" style="border-color:#15803d;">
+        <div class="fact-num" style="color:#15803d;">4</div>
+        <div class="fact-label">Үндсэн бүлэг</div>
+      </div>
+      <div class="fact-card" style="border-color:#7c3aed;">
+        <div class="fact-num" style="color:#7c3aed;">150+</div>
+        <div class="fact-label">Яст мэлхийн нас</div>
+      </div>
+    </div>
+    <div style="display:grid; gap:12px;">
+      <div style="background:white; border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.05); display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:26px; flex-shrink:0;">🦕</span>
+        <div>
+          <div style="font-weight:800; font-size:15px; margin-bottom:4px;">Динозавртай нэг удмын гаралтай</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6;">Мөлхөгчид болон шувууд нь 230+ сая жилийн өмнө амьдарч байсан архозаврын нийтлэг өвөгтэй. Матар нь динозавртай хамгийн ойр үлдсэн зүйл.</div>
+        </div>
+      </div>
+      <div style="background:white; border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.05); display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:26px; flex-shrink:0;">🔬</span>
+        <div>
+          <div style="font-weight:800; font-size:15px; margin-bottom:4px;">Якоб-Морган эрхтэн</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6;">Олон мөлхөгч хэлэндээ байдаг Якобсоны эрхтнээрээ химийн дохиог мэдэрдэг. Могой хэлээ гаргаж орчны хими дохиог мэдэрдэг нь ийм учиртай.</div>
+        </div>
+      </div>
+      <div style="background:white; border-radius:14px; padding:18px 20px; box-shadow:0 2px 8px rgba(0,0,0,0.05); display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:26px; flex-shrink:0;">🌏</span>
+        <div>
+          <div style="font-weight:800; font-size:15px; margin-bottom:4px;">Монголд байдаг зүйлүүд</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6;">Монгол нутагт говийн гүрвэл, цагаан могой, элсний могой, хад чулуун гүрвэл зэрэг 20 гаруй зүйлийн мөлхөгч амьдардаг.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. QUIZ -->
+  <section id="quiz">
+    <div class="section-label">
+      <div class="section-num">6</div>
+      <div class="section-title">Бататгах тест</div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">1. Мөлхөгчид ямар цустай вэ?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="answer(this, false, 'q1')">Дулаан цустай</button>
+        <button class="quiz-btn" onclick="answer(this, true, 'q1')">Хүйтэн цустай</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q1')">Хоёр төрлийн цустай</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q1')">Цусгүй</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q1"></div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">2. Мөлхөгчдийн биеийг юу бүрхдэг вэ?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="answer(this, false, 'q2')">Үс, ноос</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q2')">Хитин бүрхэвч</button>
+        <button class="quiz-btn" onclick="answer(this, true, 'q2')">Хайрс буюу хальс</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q2')">Шувуун өд</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q2"></div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">3. Дараах аль нь мөлхөгчдэд хамаарахгүй вэ?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="answer(this, false, 'q3')">Матар</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q3')">Яст мэлхий</button>
+        <button class="quiz-btn" onclick="answer(this, true, 'q3')">Мэлхий</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q3')">Хамелеон</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q3"></div>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-q">4. Гүрвэл дайснаасаа зугтахдаа юу хийдэг вэ?</div>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="answer(this, false, 'q4')">Өнгөө өөрчилнө</button>
+        <button class="quiz-btn" onclick="answer(this, true, 'q4')">Сүүлээ таслан хаяна</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q4')">Хор ялгаруулна</button>
+        <button class="quiz-btn" onclick="answer(this, false, 'q4')">Нисэж зугтана</button>
+      </div>
+      <div class="quiz-feedback" id="fb-q4"></div>
+    </div>
+
+    <div id="score-box" style="display:none; background:#dcfce7; border-radius:16px; padding:24px; text-align:center; margin-top:8px;">
+      <div style="font-size:36px; font-weight:800; color:#14532d;" id="score-text">4/4</div>
+      <div style="font-size:16px; color:#15803d; font-weight:600; margin-top:6px;" id="score-msg">Баяр хүргэе!</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>Мөлхөгчид (Reptilia)</strong> — 8-р ангийн Биологийн хичээл<br>
+  <span style="margin-top:6px; display:block;">Зохиогч: Н.Соёмбо · 2024</span>
+</footer>
+
+<script>
+  const answers = {};
+  const correct = { q1: false, q2: false, q3: false, q4: false };
+  const msgs = {
+    true: ['Зөв! Маш сайн! 🎉', 'Яг зөв! ✅', 'Тийм ээ, зөв! 🌟', 'Гайхалтай! 🏆'],
+    false: ['Буруу. Дахиад бод! ❌', 'Тийм биш. 📚', 'Буруу байна. 📖', 'Дахиад оролдоорой! 🔄']
+  };
+
+  function answer(btn, isCorrect, qId) {
+    if (answers[qId] !== undefined) return;
+    answers[qId] = isCorrect;
+    if (isCorrect) correct[qId] = true;
+    const btns = btn.closest('.quiz-options').querySelectorAll('.quiz-btn');
+    btns.forEach(b => b.disabled = true);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    const fb = document.getElementById('fb-' + qId);
+    const pool = msgs[String(isCorrect)];
+    fb.textContent = pool[Math.floor(Math.random() * pool.length)];
+    fb.style.display = 'block';
+    fb.style.background = isCorrect ? '#dcfce7' : '#fee2e2';
+    fb.style.color = isCorrect ? '#14532d' : '#991b1b';
+    fb.style.borderRadius = '10px';
+    fb.style.padding = '10px 14px';
+    if (Object.keys(answers).length === 4) {
+      const score = Object.values(correct).filter(Boolean).length;
+      const box = document.getElementById('score-box');
+      box.style.display = 'block';
+      document.getElementById('score-text').textContent = score + '/4 оноо';
+      if (score < 3) {
+        box.style.background = '#fee2e2';
+        document.getElementById('score-text').style.color = '#991b1b';
+        document.getElementById('score-msg').textContent = 'Дахиад давтаж уншаарай!';
+        document.getElementById('score-msg').style.color = '#b91c1c';
+      }
+    }
+  }
+
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('nav a').forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+    document.querySelectorAll('nav a').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  });
+</script>
+</body>
+</html>
